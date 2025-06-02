@@ -1,5 +1,5 @@
-import { ACCESS_TOKEN_SECRET } from "../config/server";
-import User  from "../models/user.models";
+import { ACCESS_TOKEN_SECRET } from "../config/server.js";
+import User  from "../models/user.models.js";
 import jwt from "jsonwebtoken";
 
 

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { ACCESS_TOKEN_EXPIRY, ACCESS_TOKEN_SECRET } from "../config/server.js";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -47,7 +48,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.isPasswordMatched = async function (password) {
-  return await bcryptjs.compare(password, this.password);
+  return await bcrypt.compare(password, this.password);
 };
 
 userSchema.methods.generateAccesToken = function () {
