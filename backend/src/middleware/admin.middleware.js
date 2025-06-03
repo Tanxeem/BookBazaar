@@ -1,10 +1,10 @@
 import User from "../models/user.models.js";
 
 
-const checkAdmin = (req, res, next) => {
+const checkAdmin = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const user = User.findById(userId);
+        const user =await User.findById(userId);
         if(user.role !== "admin") {
             return res.status(401).json({
                 success: false,
@@ -13,7 +13,7 @@ const checkAdmin = (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error)
+        console.log("here show error",error)
         return res.status(500).json({success: false, message: "Unauthorized" })
     }
 }

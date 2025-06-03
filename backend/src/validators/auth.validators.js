@@ -95,5 +95,32 @@ const userUpdateProfileValidator = z.object({
     }),
 })
 
+const bookSchema = z.object({
+  title: z.string().min(1).max(100),
+  author: z.string().min(1).max(100),
+  description: z.string().max(500).optional(),
+  price: z.number().min(0),
+  stock: z.number().min(0).default(0),
+  genre: z.enum(['fiction', 'non-fiction', 'science', 'history', 'biography', 'fantasy', 'mystery', 'romance']),
+  publishedDate: z.date().optional(),
+  coverImage: z.string().url().optional()
+});
+// Review validation
+const reviewSchema = z.object({
+  rating: z.number().min(1).max(5),
+  comment: z.string().max(500).optional()
+});
 
-export {userRegistrationValidator, userLoginValidator, changePasswordValidator, userUpdateProfileValidator}
+// Order validation
+const orderItemSchema = z.object({
+  bookId: z.string().min(1),
+  quantity: z.number().min(1)
+});
+
+const orderSchema = z.object({
+  items: z.array(orderItemSchema).min(1),
+  shippingAddress: z.string().min(1).max(200)
+});
+
+
+export {userRegistrationValidator, userLoginValidator, changePasswordValidator, userUpdateProfileValidator, bookSchema, reviewSchema, orderSchema};
