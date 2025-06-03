@@ -1,6 +1,11 @@
 import express from "express";
+import { createReview, deleteReview, getBookReviews } from "../controllers/review.controllers";
 
 
-const authRouter = express.Router();
+const reviewsRouter = express.Router();
 
-export default authRouter;
+reviewsRouter.post("/create", createReview);
+reviewsRouter.get("/getbookreviews/:id", getBookReviews);
+reviewsRouter.delete("/deletereview/:id", deleteReview);
+
+export default reviewsRouter;
