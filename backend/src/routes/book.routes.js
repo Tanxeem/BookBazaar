@@ -7,7 +7,7 @@ const bookRouter = express.Router();
 bookRouter.post("/create", createBook);
 bookRouter.get("/getallbooks", getAllBooks);
 bookRouter.post("/getbookbyid/:id", getBookById);
-bookRouter.put("/updatebook", updateBook);
-bookRouter.delete("/deletebook", DeleteBook);
+bookRouter.put("/updatebook/:id", updateBook);
+bookRouter.delete("/deletebook/:id", DeleteBook);
 
 export default bookRouter;
