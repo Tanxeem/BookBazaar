@@ -1,4 +1,6 @@
 import User from "../models/user.models.js"
+import crypto from "crypto"
+import ApiKey from "../models/apikey.models.js"
 
 export const register = async (req, res) => {
     const {name, email, password} = req.body
@@ -119,3 +121,21 @@ export const me = async (req, res) => {
         return res.status(500).json({success: false, message: "Something went wrong" })
     }
 }
+
+export const generateApiKey = async (req, res) => {
+  try {
+    const apiKey = crypto.randomBytes(16).toString('hex');
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30);
+    
+    const newApiKey = await ApiKey.create({
+      key: apiKey,
+      user: req.user.userId,
+      expiresAt
+    });
+    
+    res.status(201).json({ apiKey: newApiKey.key, expiresAt: newApiKey.expiresAt });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
