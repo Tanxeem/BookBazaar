@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConfig.js";
 import authRouter from "./routes/auth.routes.js";
+import bookRouter from "./routes/book.routes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cors({
 
 
 app.use("/api/v1/users", authRouter)
+app.use("/api/v1/books", bookRouter)
 
 
 app.listen(PORT, () => {
