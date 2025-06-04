@@ -1,19 +1,51 @@
 import Book from "../models/book.models.js";
 
 export const createBook = async (req, res) => {
+  const {
+    title,
+    author,
+    description,
+    price,
+    stock,
+    genre,
+    publishedYear,
+    publisher,
+    isbn,
+    averageRating,
+    numOfReviews,
+  } = req.body;
     try {
         const bookData = {
-      ...req.body,
-      createdBy: req.user._id
+      title,
+    author,
+    description,
+    price,
+    stock,
+    genre,
+    publishedYear,
+    publisher,
+    isbn,
+    averageRating,
+    numOfReviews,
+      createdBy: req.user._id,
     };
 
     const book = await Book.create(bookData);
 
+    if (!book) {
+      return res.status(400).json({
+        success: false,
+        message: "Failed to create book",
+      });
+    }
+
     res.status(201).json({
       success: true,
+      message: "Book created successfully",
       data: book,
     });
     } catch (error) {
+        console.log("creating book error",error)
         res.status(500).json({
       success: false,
       message: error.message,
@@ -100,6 +132,7 @@ export const updateBook = async (req, res) => {
 export const DeleteBook =async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
+        console.log("book",book)
 
     if (!book) {
       return res.status(404).json({

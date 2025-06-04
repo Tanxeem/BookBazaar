@@ -10,8 +10,8 @@ const bookRouter = express.Router();
 
 bookRouter.post("/create",authMiddleware, checkAdmin, validate(bookSchema), createBook);
 bookRouter.get("/getallbooks", getAllBooks);
-bookRouter.post("/getbookbyid/:id", getBookById);
-bookRouter.put("/updatebook/:id",validate(bookSchema.partial()), updateBook);
-bookRouter.delete("/deletebook/:id", DeleteBook);
+bookRouter.get("/getbookbyid/:id", getBookById);
+bookRouter.put("/updatebook/:id",authMiddleware, checkAdmin, validate(bookSchema.partial()), updateBook);
+bookRouter.delete("/deletebook/:id",authMiddleware,checkAdmin, DeleteBook);
 
 export default bookRouter;

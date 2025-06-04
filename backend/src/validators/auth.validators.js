@@ -102,8 +102,11 @@ const bookSchema = z.object({
   price: z.number().min(0),
   stock: z.number().min(0).default(0),
   genre: z.enum(['fiction', 'non-fiction', 'science', 'history', 'biography', 'fantasy', 'mystery', 'romance']),
-  publishedDate: z.date().optional(),
-  coverImage: z.string().url().optional()
+  publishedYear: z.number().optional(),
+  publisher: z.string().optional(),
+  isbn : z.string().optional(),
+  averageRating: z.number().min(0).max(5).default(0),
+  numOfReviews: z.number().min(0).default(0),
 });
 // Review validation
 const reviewSchema = z.object({
